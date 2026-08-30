@@ -1,18 +1,19 @@
 ---
 name: examforge
 description: >-
-  Turn a student's own course material into a two-in-one deliverable: a study
-  guide AND a prediction of what the exam will actually ask, optimized for
-  marks. Use this skill whenever the user wants to prepare or revise for an
-  exam, midterm, final, practical, OSPE, or quiz using their lecture slides,
-  professor audio/voice-note transcripts (English OR Arabic), past exam papers,
-  model answers, lab/practical manuals, textbook chapters, or class notes — even
-  if they just say "help me study for X", "predict my exam", "make me a revision
-  guide", or upload lecture files. Built for biology-family courses
-  (biotechnology, biology, biochemistry, bioinformatics, chemistry, microbiology,
-  molecular biology, and related lab sciences) but adapts to the material given.
-  Do NOT use for writing the exam itself, cheating during a live exam, or general
-  tutoring unrelated to a specific upcoming assessment.
+  Turn a student's own course material into a study guide AND a prediction of
+  what the exam will actually ask, plus an executable manual for how to answer
+  it. Use whenever the user wants to prepare or revise for an exam, midterm,
+  final, practical, OSPE, or quiz from their slides, professor transcripts
+  (English OR Arabic), past exam papers, model answers, lab manuals, or class
+  notes - including "help me study for X", "predict my exam", or uploaded lecture files. Also use when they ask how to solve or answer exam questions:
+  recognizing question types, choosing a method or formula, structuring answers
+  for marks, avoiding the professor's distractors, what to do when stuck, or
+  prioritizing revision with limited hours left. Built for biology-family
+  courses (biotech, biology, biochemistry, bioinformatics, chemistry,
+  microbiology, molecular biology) but adapts to the material given. Do NOT use
+  for writing an exam, cheating during a live exam, or tutoring unrelated to a
+  specific upcoming assessment.
 ---
 
 # Exam Study Guide & Predictor
@@ -32,6 +33,7 @@ The objective is **scoring on this specific exam**, not comprehensive mastery. P
 - **Output in English, but read Arabic.** The professor's transcripts may be Arabic (or code-switched Arabic + English technical terms). Parse them, catch spoken exam cues, and integrate their substance into the English output — attributing them as "professor said (verbal emphasis)."
 - **Separate fact from inference.** What the professor *explicitly said* is exam material is a **fact** — capture it verbatim (translated if Arabic) and render it in the dedicated **purple** style. What you *predict* is likely is an **inference** — render it in the confidence-tagged prediction section. Never let the two blur; a student budgets revision time differently for "he said this is coming" vs "we think this is coming."
 - **Handle large transcripts.** Transcripts can run 100+ pages. Do the explicit-marker extraction pass (below) *first* as a cheap scan, then chunk-read the rest section by section. Do not attempt to reason over the whole document in one pass.
+- **Executable, not just informative.** The deliverable must work as an **exam operating manual**: seeing a question, the student should know how to recognize its type, choose the method, execute it, present the answer, and sanity-check it. Prediction identifies *what* is asked; the solving layer in `references/solving-layer.md` covers *how to answer it*. Never stop at "here is what this concept means."
 - **Conditional sections.** Never force lab-science machinery (calculations, media-ID tables, specimen photos) onto material that doesn't contain it. Detect what the material is and build only the sections that apply. Keep the machinery available even for image-light courses — activate it when the user says the exam has images/spots/calculations.
 
 ## Workflow
@@ -55,6 +57,9 @@ Ask:
     - (a) None — the guide/prediction is the whole deliverable.
     - (b) In-chat flashcards — emit an Anki-ready CSV of Q/A pairs (one-off; Anki does the scheduling).
     - (c) Coached spaced repetition in Claude Code — emit a **handoff pack** (see `references/output-format.md`) formatted to seed the companion **Learn FASTER** kit, which runs in Claude Code/Codex and persists review state across days. The skill itself can't do cross-session SRS; this is the bridge to a tool that can.
+
+11. **Time available before the exam** — hours/days left to revise. If given (or if the exam is clearly imminent), build the time-budget prioritization and exam-room attack plan from `references/solving-layer.md`.
+12. **Their current level on this material** — comfortable, shaky, or starting near-zero. A beginner needs the execution layer (recognition → method → worked examples) prioritized over theory.
 
 **Source checklist** (tell them each source's role so they know what's worth digging up):
 
@@ -82,13 +87,19 @@ After intake, read `references/prediction-and-analysis.md` before doing anything
 
 Follow the full method in `references/prediction-and-analysis.md`: signal weighting, pattern recognition (how *this* professor phrases questions), confidence tagging, and generating predicted questions with model answers that mirror the professor's style and the marks on offer.
 
+### Step 3.5 — Build the solving layer
+
+Read `references/solving-layer.md` and construct the execution half: question-type recognition (**IF I SEE THIS → IT MEANS THIS → I SHOULD DO THIS**, using the professor's real wording), step-by-step solving procedures, beginner-to-exam bridges, escalated worked examples tagged with their source, answer templates, within-question mark-earning structure, sanity checks, the distractor bank, stuck-recovery protocols, cross-source question patterns, and difficulty layering. Preserve the professor's own methods and notation over textbook convention. Run the error-and-contradiction audit here.
+
 ### Step 4 — Build the deliverable
 
 Read `references/output-format.md` for the section catalog (which sections activate when), the color-coding rules, and the full HTML/`.docx` templates. Assemble only the sections the material justifies, ordered by the mark distribution.
 
 ### Step 5 — Faithfulness & self-check pass
 
-Before delivering, verify: every outside-source insight is flagged; every predicted question cites its signals; the section set matches the material (no empty lab tables on a non-lab course); the highest-mark topics got the most space. Then save the file and present it.
+Before delivering, verify: every outside-source insight is flagged; every predicted question cites its signals; the section set matches the material (no empty lab tables on a non-lab course); the highest-mark topics got the most space.
+
+Then run the **coverage audit** from `references/solving-layer.md` §17: every past-exam question type covered, every professor cue covered, every major procedure demonstrated with a source-tagged example, source errors flagged, and no important topic left without a "how to solve." Where a topic has no real example, say so explicitly rather than inventing one. Then save the file and present it.
 
 ## What good output looks like
 

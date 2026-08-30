@@ -17,18 +17,40 @@ Build a section only if its trigger is met. Order sections by the mark distribut
 | 7. Visual / Data Interpretation | Image/graph/code-based exam, OR user uploaded visuals | Table: item • purpose/function • distinguishing features • expected result • "how it appears in the exam." Covers specimens, plates, gels, graphs, code blocks, maps, diagrams. Keep this machinery available even when dormant. |
 | 8. Analytical / Calculations | Quantitative or formula content present (CFU/mL, dilutions, BOD, COD, enzyme activity/units, % solubilization, molarity, Beer–Lambert, yield, statistical tests, etc.) | Formula/framework + every variable defined + ≥2 solved step-by-step examples from the actual sources/past papers + common mistakes. |
 | 9. Predicted Exam Questions + Model Answers | Always (unless strict-extract) | Core deliverable. Each tagged HIGH/MEDIUM/LOW with signal justification. Mirror the professor's phrasing; answer to the mark depth. |
+| 9a. Question-Type Recognition | Always (unless strict-extract) | **IF I SEE THIS → IT MEANS THIS → I SHOULD DO THIS**, one row per question type present, using the professor's real past-exam wording. See `solving-layer.md` §1. |
+| 9b. Solving Procedures & Worked Examples | Procedural/calculation/practical content present | Numbered *Given → Identify → Choose method → Execute → Interpret → Check* procedures, escalated worked examples, each tagged with its source (e.g. *Midterm Form A, Q3*). Blue. §2–4, §14. |
+| 9c. Answer Templates & Mark-Earning Structure | Constructed-response questions expected | Exam-ready answer skeletons plus **MUST INCLUDE / GOOD TO INCLUDE / UNNECESSARY DETAIL** per question type. §5–6. |
+| 9d. Distractor Bank | MCQ/true-false on the exam | **QUESTION → TEMPTING WRONG ANSWER → WHY IT LOOKS RIGHT → WHY IT IS WRONG → CORRECT RULE**, using real past-exam distractors. §8. |
+| 9e. Sanity Checks & Stuck-Recovery | Procedural/calculation content present | **ANSWER → QUICK CHECK** table plus the per-type recovery protocol. §7, §9. |
+| 9f. Reusable Question Patterns | Same structure recurs across sources | Lecture → worksheet → past exam → model answer mapping, with the invariant solving structure named. §10. |
 | 10. Exam Traps & Common Mistakes | Always | Confused-pair contrasts, unit traps, misread mechanisms. |
+| 10a. Source Errors & Contradictions | Audit found confirmed issues | **SOURCE SAYS → PROBLEM → EVIDENCE → WHAT TO FOLLOW FOR THE EXAM.** Omit only if genuinely nothing was found. §12. |
+| 10b. Difficulty Self-Check | Always (unless strict-extract) | Per topic: Recognition / Basic / Application / Trap / Written — so the student sees where they're weak. §13. |
+| 10c. Time Budget & Exam-Room Attack Plan | Student gave a time limit, or exam is imminent | **TIME AVAILABLE → TOPICS → EXACT TASK**, plus format-specific in-room strategy. §15–16. |
 | 11. Rapid Revision Sheet | User chose "rapid" or "both" | Ultra-condensed one-pager: memory triggers, mnemonics, must-memorize list, formula strip, top predicted Qs. |
+| 11a. Final-Minute Sheet | User chose "rapid" or "both", or exam imminent | The tightest layer: only formulas, decisive rules/distinctions, top traps, answer templates, recognition cues. Derived from the analysis above — introduces nothing new. |
 
 If a triggered section has no real content in the sources, omit it rather than padding.
+
+## Four revision layers
+
+The guide is built as nested compressions, each derived from the analysis above — later layers introduce no new information:
+
+1. **Full explanation** — for learning the topic (sections 4–8).
+2. **Exam procedure** — for learning how to solve it (sections 9a–9f).
+3. **High-density recall** — the one-page rapid sheet (11).
+4. **Final-minute sheet** — formulas, rules, traps, templates, recognition cues only (11a).
 
 ## Color coding (consistent across HTML and docx)
 
 - 🟣 **Purple** — the professor's *explicit* exam statements, quoted verbatim. Facts, not predictions. Highest priority.
 - 🔴 **Red** — Exam Alerts, Traps, HIGH-confidence *predictions*, "we think this is coming."
 - 🟢 **Green** — Key concepts / must-know facts.
-- 🔵 **Blue** — Mechanisms & frameworks / the WHY & HOW.
-- ⚪ **Grey/italic** — Outside-source clarifications (must be visually distinct so the student knows it wasn't from the professor).
+- 🔵 **Blue** — Mechanisms & frameworks *and* required solving procedures / methods — the WHY, HOW, and HOW-TO-DO-IT.
+- ⚫ **Gray (solid)** — supporting explanation or background from the course material.
+- ⚪ **Grey/italic dashed** — Outside-source clarifications (must be visually distinct so the student knows it wasn't from the professor).
+
+Four things must never be confused: a prediction must never visually resemble a confirmed professor statement, and outside-source clarification must never look like course material. Purple ≠ red; dashed-outside ≠ solid-gray background.
 
 **Strict-extract deliverable:** if the user chose "strict extract," output *only* Section 3 (Professor's Explicit Exam Statements) plus a one-line blueprint — no predictions, no synthesis, ultra-condensed. This mirrors the "extract only what the professor explicitly flagged" objective.
 
@@ -63,6 +85,12 @@ Self-contained single file, internal CSS, collapsible sections, sticky clickable
   th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
   th{background:#f5f6f8}
   .exam{background:var(--exam-bg);border-left:5px solid var(--exam);padding:10px 14px;border-radius:6px;margin:12px 0}
+  .proc{background:var(--mech-bg);border-left:5px solid var(--mech);padding:10px 14px;border-radius:6px;margin:12px 0}
+  .proc ol{margin:6px 0 0 18px}
+  .bg{background:#f5f6f8;border-left:5px solid #9ca3af;padding:10px 14px;border-radius:6px;margin:12px 0;color:#374151}
+  .src{font-size:.8em;color:var(--mech);font-weight:700;text-transform:uppercase;letter-spacing:.3px}
+  .must{color:var(--alert);font-weight:700} .good{color:#d68910;font-weight:700} .skip{color:var(--outside)}
+  .recog th:first-child{width:32%} .recog td:nth-child(2){font-style:italic}
   .exam blockquote{margin:6px 0;padding-left:10px;border-left:3px solid var(--exam);color:#4c1d95}
   .alert{background:var(--alert-bg);border-left:5px solid var(--alert);padding:10px 14px;border-radius:6px;margin:12px 0}
   .key{background:var(--key-bg);border-left:5px solid var(--key);padding:10px 14px;border-radius:6px;margin:12px 0}
@@ -97,6 +125,20 @@ Self-contained single file, internal CSS, collapsible sections, sticky clickable
     <p><em>Signal: appeared in 2023 & 2024 papers; verbally emphasized.</em></p>
     <details><summary>Model answer</summary>[answer to mark depth]</details>
   </div>
+
+  <h2 id="sec-9a">9a · Question-Type Recognition</h2>
+  <table class="recog"><tr><th>If I see this</th><th>It means this</th><th>I should do this</th></tr>
+    <tr><td>[professor's actual stem wording]</td><td>[what's really being tested]</td><td>[method + sequence]</td></tr>
+  </table>
+
+  <div class="proc">
+    <span class="src">Source: [Midterm Form A, Q3]</span>
+    <p><strong>Procedure — [question type]</strong></p>
+    <ol><li>Given: …</li><li>Identify: …</li><li>Choose method: …</li><li>Execute: …</li><li>Interpret: …</li><li>Check: …</li></ol>
+    <p><span class="must">MUST INCLUDE</span> … · <span class="good">GOOD</span> … · <span class="skip">UNNECESSARY</span> …</p>
+  </div>
+
+  <div class="bg">⚫ Background (course material): …</div>
 
   <!-- Callout examples -->
   <div class="exam">🟣 Professor said (exam): <blockquote>"[verbatim quote]" — [English translation if Arabic]</blockquote>→ points to: [topic]</div>
