@@ -5,7 +5,7 @@ description: Produce a source-grounded exam prediction + study guide from ingest
 ## Context
 
 - Learning state: !`ls .learning/ 2>/dev/null`
-- Reference: read `.learning/references/exam_prediction.md` before proceeding.
+- References: read `.learning/references/exam_prediction.md` and `.learning/references/exam_solving.md` before proceeding.
 
 ## Your Task
 
@@ -23,6 +23,10 @@ Following `exam_prediction.md`:
 - Generate predicted questions with model answers, each tagged 🔴HIGH / 🟡MEDIUM / 🟢LOW with a one-line signal justification, mirroring the professor's phrasing and answering to the mark depth.
 - Keep **purple** (professor said it) visually and logically distinct from **red** (predicted).
 
+### Step 2.5 — Build the solving layer
+
+Following `exam_solving.md`, construct the execution half so the guide works as an exam operating manual: question-type recognition (**IF I SEE THIS → IT MEANS THIS → I SHOULD DO THIS**, in the professor's real wording), numbered solving procedures (*Given → Identify → Choose method → Execute → Interpret → Check*), source-tagged worked examples, answer templates with **MUST/GOOD/UNNECESSARY** components, the distractor bank, sanity checks, stuck-recovery protocols, and difficulty layering. Preserve the professor's own methods and notation over textbook convention. Run the error-and-contradiction audit here.
+
 ### Step 3 — Build the guide
 
 Ask the student: deep no-missing-detail guide, ultra-condensed rapid sheet, both, or strict-extract (professor's flagged points only). Ask output format (HTML default, or Markdown). Build only the sections the material justifies — activate calculations, visual/data-ID, and protocol sections only when the content is present; keep the image machinery available for image-heavy courses. Save to `.learning/<topic-slug>/exam_guide.html` (or `.md`).
@@ -34,6 +38,10 @@ Convert HIGH/MEDIUM predicted questions and the purple must-know facts into revi
 python3 .learning/scripts/review_scheduler.py --add --topic "<topic-slug>" --from-guide
 ```
 If the script has no such flag, write the items into the topic's `review_schedule.json` in the same shape the scheduler already reads (mirror an existing entry), prioritizing by confidence tag and exam marks. This makes the spaced-repetition drills the *actual predicted paper*, not generic questions.
+
+### Step 4.5 — Coverage audit
+
+Run `exam_solving.md` §17 before reporting: every past-exam question type covered, every professor cue covered, every major procedure demonstrated with a source-tagged example, source errors flagged, no important topic without a "how to solve." Where no real example exists for a topic, say so explicitly instead of inventing one.
 
 ### Step 5 — Report
 
