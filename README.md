@@ -1,5 +1,12 @@
 # ExamForge
 
+> [!IMPORTANT]
+> **This project has moved to [SamDozer/exam-study-guide-predictor](https://github.com/SamDozer/exam-study-guide-predictor) and is no longer maintained.**
+>
+> Everything useful here was merged into that repository: the exam-solving layer, the Learn FASTER kit (now `learn-faster-kit/`, "Enhanced Learn FASTER"), and the spaced-repetition hand-off. The prediction method there is newer and stronger. It adds slide-formatting detection, scope and per-doctor analysis, past papers read from photos, Egyptian exam question styles, and optional Anki import.
+>
+> Install the skill from [`dist/exam-study-guide-predictor.skill`](https://github.com/SamDozer/exam-study-guide-predictor/blob/main/dist/exam-study-guide-predictor.skill) instead of `dist/examforge.skill`. This repository is archived and kept for reference only.
+
 **Predict the paper → forge the study guide → drill it to retention.**
 
 ExamForge turns your *own* course material — lecture slides, professor transcripts (English or Arabic), past exam papers, model answers, lab manuals, notes — into a source-grounded study guide, an evidence-ranked prediction of what the exam will actually ask, and a spaced-repetition drill built from that prediction.
